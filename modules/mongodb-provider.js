@@ -14,20 +14,35 @@ exports.provideList = function(response) {
   });
 };
 
+exports.queryData = function(headers, queryName, response) {
+	Pet.find({name : queryName}, function(error, result) {
+		if (error) {
+			console.error(error);
+			return null;
+		}
+		if (result != null) {
+			response.writeHead(200, {'Content-Type':'application/json'});
+			response.end(JSON.stringify(result));
+		}
+	});
+};
+
 exports.paginate = function(req, res) {
+  let limit = 3;
+  if (req.query.limit != null) limit = parseInt(req.query.limit);
+
   Pet.paginate({},
-    {page:req.query.page, limit:req.query.limit},
+    {page:parseInt(req.params.page), limit:limit},
     function (error, pageCount, result, itemCount) {
         if(error) {
           console.log(error);
-          response.writeHead('500', {'Content-Type' : 'text/plain'});
-          response.end('Internal Server Error');
+          res.writeHead('500', {'Content-Type' : 'text/plain'});
+          res.end('Internal Server Error');
         }
         else {
-          response.json({
-            object : 'characters',
-            pageCount : pageCount,
-            result: result
+          res.json({
+            object : 'pets',
+            pageCount : pageCount
           });
         }
     });
