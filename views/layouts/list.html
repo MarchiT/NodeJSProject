@@ -12,8 +12,7 @@
     <title>Pets</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-
-    <link href="/styles/details.css" rel="stylesheet">
+    <link href="/styles/list.css" rel="stylesheet">
 
     <script src="https://fb.me/react-0.14.6.js"></script>
     <script src="https://fb.me/react-dom-0.14.6.js"></script>
@@ -53,6 +52,16 @@
       </div>
     </div>
 
+    <nav id="pages">
+      <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+      </ul>
+    </nav>
+
     <footer class="text-muted">
       <div class="container">
         <p class="float-right">
@@ -65,52 +74,52 @@
 
     <script type="text/jsx">
 
-    // var pets = [{
-    //   name: 'simona the dog who ventured around the whole wide world to find hidden treasures and other things',
-    //   typeAnimal: 'kitten',
-    //   breed: 'persian',
-    //   imageUrl: 'http://www.lovethispic.com/uploaded_images/64352-Cute-Kitten-With-Red-Bow.jpg',
-    //   description: 'she is cute',
-    //   age: 3,
-    //   owner: 'kimi'
-    // },
-    // {
-    //   name: 'kirk',
-    //   typeAnimal: 'doggo',
-    //   breed: 'terrier',
-    //   imageUrl: 'http://www.lovethispic.com/uploaded_images/64352-Cute-Kitten-With-Red-Bow.jpg',
-    //   description: 'he jumps a lot',
-    //   age: 3,
-    //   owner: 'kimi'
-    // }];
+    var pets = [{
+      name: 'simona the dog who ventured around the whole wide world to find hidden treasures and other things',
+      typeAnimal: 'kitten',
+      breed: 'persian',
+      imageUrl: 'http://www.cats.org.uk/uploads/images/featurebox_sidebar_kids/grief-and-loss.jpg',
+      description: 'she is cute',
+      age: 3,
+      owner: 'kimi'
+    },
+    {
+      name: 'kirk',
+      typeAnimal: 'doggo',
+      breed: 'terrier',
+      imageUrl: 'https://debonairng.com/wp-content/uploads/2017/05/cat-500x300.jpg',
+      description: 'he jumps a lot',
+      age: 3,
+      owner: 'kimi'
+    }];
 
 
-    $.ajax({
-      type: 'GET',
-      contentType: 'application/json',
-      url: 'http://localhost:3000/1',
-
-      success: function (data, status, xhr) {
-        if (status === 'success') {
-          var pets = [];
-
-          for (var i = 0; i < data.length; i++ ) {
-            var pet = {};
-            pet.name = data.pageCount.docs[i].name;
-            pet.typeAnimal = data[i].typeAnimal;
-            pet.breed = data[i].breed;
-            pet.imageUrl = data[i].imageUrl;
-            pet.description = data[i].description;
-            pet.age = data[i].age;
-            pet.owner = data[i].owner;
-
-            pets.push(pet);
-          }
-
-          ReactDOM.render(<FilteredList petsData={pets}/>, document.getElementById('pet-card'));
-        }
-      }
-    });
+    // $.ajax({
+    //   type: 'GET',
+    //   contentType: 'application/json',
+    //   url: 'http://localhost:3000/1',
+    //
+    //   success: function (data, status, xhr) {
+    //     if (status === 'success') {
+    //       var pets = [];
+    //
+    //       for (var i = 0; i < data.length; i++ ) {
+    //         var pet = {};
+    //         pet.name = data[i].name;
+    //         pet.typeAnimal = data[i].typeAnimal;
+    //         pet.breed = data[i].breed;
+    //         pet.imageUrl = data[i].imageUrl;
+    //         pet.description = data[i].description;
+    //         pet.age = data[i].age;
+    //         pet.owner = data[i].owner;
+    //
+    //         pets.push(pet);
+    //       }
+    //
+    //       ReactDOM.render(<FilteredList petsData={pets}/>, document.getElementById('pet-card'));
+    //     }
+    //   }
+    // });
 
         var FilteredList = React.createClass({
           render: function(){
@@ -144,7 +153,7 @@
           }
         });
 
-        // ReactDOM.render(<FilteredList petsData={pets}/>, document.getElementById('pet-card'));
+        ReactDOM.render(<FilteredList petsData={pets}/>, document.getElementById('pet-card'));
     </script>
 
   </body>

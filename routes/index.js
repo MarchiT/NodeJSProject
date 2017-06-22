@@ -7,22 +7,25 @@ var dbProvider = require('../modules/mongodb-provider.js');
 /* GET home page. */
 
 router.get('/test', function(request, response, next){
-  response.sendFile(path.join(__dirname, '../views/layouts', 'test.html'));
-})
-
-router.get('/all', function(request, response, next){
   response.sendFile(path.join(__dirname, '../views/layouts', 'list.html'));
-});
+})
 
 router.get('/index', function(request, response, next){
   response.sendFile(path.join(__dirname, '../views/layouts', 'react-details.html'));
 });
 
-router.get('/:page', function(request, response, next){
+router.get('/', function(request, response, next){
+  response.sendFile(path.join(__dirname, '../views/layouts', 'jq-list.html'));
+});
+
+router.get('/all', function(request, response, next){
   console.log('Get all');
+  dbProvider.provideList(response);
+});
+
+router.get('/:page', function(request, response, next){
   console.log('Page: ' + request.params.page);
   console.log('Limit: ' + request.query.limit);
-  // dbProvider.provideList(response);
   dbProvider.paginate(request, response);
 });
 
