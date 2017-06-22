@@ -56,10 +56,24 @@ exports.deletePet = function (req, res) {
 	}).remove().exec();
 }
 
+function handleError(error, log, res) {
+  var numberError = req.query.page;
+}
+
 exports.paginate = function(req, res) {
   let limit = 3;
   if (req.query.limit != null) limit = parseInt(req.query.limit);
 
+  console.log("page:  " + parseInt(req.params.page));
+  if (isNaN(req.params.page)) {
+    console.log('This is not number');
+    res.writeHead('400', {'Content-Type' : 'text/plain'});
+    res.end('Bad Request');
+    //handleError('500', 'Error', 'Internal Server Error');
+
+  } else {
+
+//  handleError('400', 'This is not number', 'Bad Request')
   Pet.paginate({},
     {page:parseInt(req.params.page), limit:limit},
     function (error, pageCount, result, itemCount) {
@@ -67,6 +81,8 @@ exports.paginate = function(req, res) {
           console.log(error);
           res.writeHead('500', {'Content-Type' : 'text/plain'});
           res.end('Internal Server Error');
+          //handleError('500', 'Error', 'Internal Server Error');
+
         }
         else {
           res.json({
@@ -75,6 +91,8 @@ exports.paginate = function(req, res) {
           });
         }
     });
+
+  }
 }
 
 function toPet(petObject) {
