@@ -32,6 +32,14 @@ router.get('/pet/:name', function(request, response, next){
 	dbProvider.findByName({}, request.params.name, response);
 });
 
+//filters by typeAnimal & breed
+// localhost:3000/filter?typeAnimal=doggo&breed=labrador
+router.get('/filter', function(request, response, next){
+  console.log("Filter by type animal: " + request.query.typeAnimal);
+  console.log("Filter by breed: " + request.query.breed);
+	dbProvider.filter(request, response);
+});
+
 router.get('/:page', function(request, response, next){
   console.log('Page: ' + request.params.page);
   console.log('Limit: ' + request.query.limit);

@@ -27,6 +27,20 @@ exports.findByName = function(headers, queryName, response) {
 	});
 };
 
+exports.filter = function(req, res) {
+	Pet.find({typeAnimal : req.query.typeAnimal, breed : req.query.breed},
+    function(error, result) {
+		if (error) {
+			console.error(error);
+			return null;
+		}
+		if (result != null) {
+			res.writeHead(200, {'Content-Type':'application/json'});
+			res.end(JSON.stringify(result));
+		}
+	});
+};
+
 exports.deletePet = function (req, res) {
   var pet = toPet(req.body);
 
