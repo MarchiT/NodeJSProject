@@ -20,7 +20,16 @@ router.get('/', function(request, response, next){
 
 router.get('/all', function(request, response, next){
   console.log('Get all');
-  dbProvider.provideList(response);
+  dbProvider.allPets(response);
+});
+
+router.post('/delete', function(request, response, next){
+  dbProvider.deletePet(request, response);
+});
+
+router.get('/pet/:name', function(request, response, next){
+  console.log("Find pet by name: " + request.params.name);
+	dbProvider.findByName({}, request.params.name, response);
 });
 
 router.get('/:page', function(request, response, next){
@@ -30,12 +39,7 @@ router.get('/:page', function(request, response, next){
 });
 
 router.post('/', function(request, response, next){
-  dbProvider.saveCharacter(request, response);
-});
-
-router.get('/pet/:name', function(request, response, next){
-  console.log("Find pet by name: " + request.params.name);
-	dbProvider.queryData({}, request.params.name, response);
+  dbProvider.savePet(request, response);
 });
 
 module.exports = router;

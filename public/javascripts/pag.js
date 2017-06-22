@@ -65,6 +65,9 @@ function renderCards() {
       ul.append('<li>' + pets.pageCount.docs[i].name + '</li>');
       ul.append('<li>' + pets.pageCount.docs[i].typeAnimal + '</li>');
       ul.append('<li>' + pets.pageCount.docs[i].breed + '</li>');
+      ul.append('<li>' + pets.pageCount.docs[i].description + '</li>');
+      ul.append('<li>' + pets.pageCount.docs[i].age + '</li>');
+      ul.append('<li>' + pets.pageCount.docs[i].owner + '</li>');
     });
   }
 }

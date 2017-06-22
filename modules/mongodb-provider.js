@@ -3,7 +3,7 @@ var models = require('../model/pet.js');
 var Pet = models.Pet;
 
 
-exports.provideList = function(response) {
+exports.allPets = function(response) {
   Pet.find({}, function(error, result) {
     if (error) {console.error(error); return null;}
 
@@ -14,7 +14,7 @@ exports.provideList = function(response) {
   });
 };
 
-exports.queryData = function(headers, queryName, response) {
+exports.findByName = function(headers, queryName, response) {
 	Pet.find({name : queryName}, function(error, result) {
 		if (error) {
 			console.error(error);
@@ -26,6 +26,21 @@ exports.queryData = function(headers, queryName, response) {
 		}
 	});
 };
+
+exports.deletePet = function (req, res) {
+  var pet = toPet(req.body);
+
+  Pet.find({name : pet.name}, function(error, result) {
+		if (error) {
+			console.error(error);
+			return null;
+		}
+		if (result != null) {
+			res.writeHead(200, {'Content-Type':'application/json'});
+			res.end(JSON.stringify(pet));
+		}
+	}).remove().exec();
+}
 
 exports.paginate = function(req, res) {
   let limit = 3;
@@ -60,7 +75,7 @@ function toPet(petObject) {
 	});
 }
 
-exports.saveCharacter = function(request, response) {
+exports.savePet = function(request, response) {
 	var pet = toPet(request.body);
 
 	pet.save(function(error) {
